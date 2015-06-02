@@ -12,3 +12,8 @@ In the further development, I think to:
 version 0.2 (now works better with different height elements)
 author Chang Zhao
 (version 0.1 - author Michael Rafaylik)
+
+Please use this for the benefit of all beings.
+
+Awakened Mind (Inheritance — Share-Alike) License v. 1.0
+http://earth.zen-do.ru/laws/license
