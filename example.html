@@ -5,15 +5,64 @@
     <link type='text/css' rel='stylesheet' href='style.css'>
     <script type='text/javascript' src='http://code.jquery.com/jquery-2.0.3.min.js'></script>
     <script type='text/javascript' src='easysort.js'></script>
+    <style type="text/css">
+        html, body {
+            background-color: #EEEEDD;
+        }
+        div {
+            border: 1px solid #B6BCBF;
+            border-radius: 12px;
+            text-align: center;
+        }
+        body > div {
+            background-color: #F3F1E5;
+            box-shadow: 0 0 1px #12B327;
+            margin: 3%;
+        }
+        body > div > div {
+            background: #fafafa;
+            background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
+            background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
+            background:         linear-gradient(top, #fafafa 0%, #eee 100%);
+        }
+        .drag:hover {
+            box-shadow: 0 0 12px rgba(5, 178, 210, 0.33) inset;
+        }
+        div h3 {
+            margin: 0;
+            padding: 12px;
+            border-radius: 12px;
+            vertical-align: middle;
+        }
+        div h3 * {
+            margin: 12px;
+            vertical-align: middle;
+        }
+    </style>
 
 </head><body>
 
-<div>
-    <div class="drag">1</div>
-    <div class="drag">2</div>
-    <div class="drag">3</div>
-    <div class="drag">4</div>
-    <div class="drag">5</div>
+<div><h1>A list of my favorite resources</h1>
+    <div class="drag" data-id="1">
+        <h3 style="background-color: #0066cc"><a href="http://www.zenforuminternational.org/" style="color: snow;">
+            <img src="http://www.zenforuminternational.org/styles/synapse/theme/images/style2/logo.png" />Zen Forum International</a></h3>
+    </div>
+    <div class="drag" data-id="2">
+        <h3 style="background-color: #a0811b"><a href="http://chancenter.org/cmc/publications/chan-magazines/" style="color: snow;"><img src="http://chancenter.org/cmc/wp-content/uploads/dm-albums/chanmagcover/chanmagwhite.png" />Zen Literature. Free Download </a></h3>
+    </div>
+    <div class="drag" data-id="3">
+        <h3><a href="http://www.palemoon.org/"><img src="https://addons.palemoon.org/media/img/layout/logo.png" />Pale Moon - the true honest browser. It's for us, bro.</a></h3>
+    </div>
+    <div class="drag" data-id="4">
+        <h3><a href="http://alternativeto.net/">AlternativeTo - find some software for people!</a></h3>
+    </div>
+    <div class="drag" data-id="5">
+        <h3><a href="http://tineye.com/"><img src="http://tineye.com/images/nav-home-logo.png" />Reverse Image Search</a></h3>
+    </div>
+    <div class="drag" data-id="6">
+        <h3>Lurk moar...</h3>
+    </div>
+
 </div>
 
 </body></html>
