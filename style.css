@@ -1,11 +1,15 @@
 .drag {
-  position:relative;
-  cursor:default;
-  z-index:1;
+	position: relative;
+	top: auto;
+	cursor: move;
+	-webkit-transition: 0.8s ease-in-out;
+	-moz-transition: 0.8s ease-in-out;
+	-o-transition: 0.8s ease-in-out;
+	transition: 0.8s ease-in-out;
+	z-index: 1;
 }
-.drag:not(.moving) {
-	-webkit-transition: 0.3s ease-in-out;
-	-moz-transition: 0.3s ease-in-out;
-	-o-transition: 0.3s ease-in-out;
-	transition: 0.3s ease-in-out;
+.drag[data-1="moving"] {
+	top: auto;
+	opacity: 0.5;
+	z-index: 2;
 }
