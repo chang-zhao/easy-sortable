@@ -5,13 +5,14 @@ $.fn.draggable = function(){
     function disableSelection(){
         return false;
     }
-    // нажали на элементе
+    // нажали на элементе - всё включаем
     $(this).mousedown(function(e){
+        // берём этот элемент
         var drag = $(this);
-        // присвоили ему класс, настроенный на мгновенные изменения css
-        drag.toggleClass('moving');
+        // добавляем ему атрибут (используем как селектор css)
+        $(drag)[0].setAttribute('data-1','moving');
 
-        // контейнер
+        // обрамляющий контейнер:
         var parent = drag.parent();
         // верхняя граница контейнера
         var posParentTop = parent.offset().top;
@@ -19,20 +20,21 @@ $.fn.draggable = function(){
         var posParentBottom = posParentTop + parent.height();
 
         // размер и исходное положение элемента:
-        // его середина по высоте
+        var height = drag.height();
+        // половина его высоты
         var middle = drag.height()/2;
         // позиция по средней линии
-        var posOld = drag.offset().top + middle;
+        var pos = drag.offset().top + middle;
         // коррекция относительно позиции курсора при нажатии
-        var posOldCorrection = e.pageY - posOld;
+        var posCorrection = e.pageY - pos;
 
         // поднимаем нажатый элемент по z-оси
-        drag.css({'z-index':2, 'background-color':'#eeeeee'});
+        drag.css({'z-index':2, 'top': 'auto'});
 
         // перетягиваем элемент
         var mouseMove = function(e){
             // получаем новые динамические координаты элемента
-            var posNew = e.pageY - posOldCorrection;
+            pos = e.pageY - posCorrection;
 
             // соседи элемента и линии обмена с ними:
             // предыдущий элемент (если он существует)
@@ -44,7 +46,7 @@ $.fn.draggable = function(){
                 var posGoUp = prevTop + prevEl.height()/2 + middle;
             }
 
-            // следующий элемент (если он существует)
+            // следующий элемент - если он существует,
             // то линия обмена - на середине их суммарной высоты
             var nextEl = drag.next();
             if (nextEl.length > 0) {
@@ -54,97 +56,58 @@ $.fn.draggable = function(){
                 var posGoDown = nextTop + nextEl.height()/2 - middle;
             }
             // если элемент тянут выше верхней границы контейнера
-            if (posNew < (posParentTop + middle)){
+            if (pos < (posParentTop + middle)){
                 // устанавливаем позицию элемента, равную позиции родителя
                 drag.offset({'top': posParentTop});
-                // обновляем смещение относительно мыши
-                posOldCorrection = e.pageY - middle - posParentTop;
+
                 // меняем элемент с предыдущим в DOM, если тот существует
-                // замещаемый элемент двигаем плавно, с анимацией
                 if (posGoUp)
-                    drag.insertBefore(prevEl.css({'top':-middle-middle}).css({'top':0}));
+                    drag.insertBefore(prevEl);
+
             // если элемент тянут ниже нижней границы контейнера
-            } else if ((posNew + middle) > posParentBottom){
+            } else if ((pos + middle) > posParentBottom){
                 // устанавливаем позицию элемента, равную
                 // нижней границе родителя - высота элемента
-                var setPos = posParentBottom - (middle + middle);
-                drag.offset({'top': setPos});
-                posOldCorrection = e.pageY + middle - posParentBottom;
+                drag.offset({'top': (posParentBottom - height)});
                 // меняем элемент со следующим в DOM, если тот существует
-                // замещаемый элемент двигаем плавно, с анимацией
                 if (posGoDown)
-                    drag.insertAfter(nextEl.css({'top':middle+middle}).css({'top':0}, 100));
+                    drag.insertAfter(nextEl);
 
             // если элемент в пределах контейнера
             } else {
-                // устанавливаем новую высоту (элемент перемещается за курсором)
-                drag.offset({'top': (posNew - middle)});
+
+                // обновляем позицию элемента, вслед за курсором
+                drag.offset({'top': (pos - middle)});
 
                 // если середина элемента заходит за линию обмена вверх
-                if (posGoUp && (posGoUp > posNew)) {
-                    // помещаем на новую позицию
-                    drag.offset({'top': prevTop}); // (prevTop + middle)
+                if (posGoUp && (posGoUp > pos)) {
                     // меняем элемент с предыдущим в DOM
-//                    drag.insertBefore(prevEl.css({'top': -middle-middle}).css({'top': 0}));
-                    drag.css({'visibility': 'none'}).insertBefore(prevEl.css({'top': -middle-middle}).css({'top': 0})).css({'visibility': 'visible'});
+                    drag.insertBefore(prevEl.css("top", 0)).css("top", 0);
+                    drag.offset({'top': (pos - middle)});
 
-                    // обновляем позицию
-//                    drag.css({'top':0});
-
-
-                //    drag.css({'top':(posNew - prevTop)});
-
-
-                    // обновляем координаты исходного и текущего положения
-//                    posOld = drag.offset().top + middle;
-
-                    posOld = posNew;
-
-                    // коррекция относительно позиции курсора при нажатии
-//                    posOldCorrection = e.pageY - posOld;
-
-//                    posNew = e.pageY - posOldCorrection;
-
-                // если середина элемента заходит за линию обмена вниз
-                } else if (posGoDown && (posGoDown < posNew)){
-                    // помещаем на новую позицию
-                    drag.offset({'top': nextTop}); // (nextTop - middle)
+                    // если середина элемента заходит за линию обмена вниз
+                } else if (posGoDown && (posGoDown < pos)){
                     // меняем элемент со следующим в DOM
-                    drag.css({'visibility': 'none'}).insertAfter(nextEl.css({'top':middle+middle}).css({'top':0})).css({'visibility': 'visible'});
-//                    drag.css({'visibility': 'none'}).insertAfter(nextEl.css({'top':middle+middle}).css({'top':0})).css({'visibility': 'visible'});
-
-//                    drag.css({'top':0});
-
-
-                //    drag.css({'top':(posNew - nextTop)});
-
-
-//                    posOld = drag.offset().top;
-//                    posNew = e.pageY - posOldCorrection;
-//                    posOldCorrection = e.pageY - posOld;
-
-//                    drag.insertAfter(nextEl);
-                    posOld = posNew;
-//                    posOldCorrection = e.pageY - posOld;
+                    drag.insertAfter(nextEl.css("top", 0)).css("top", 0);
+                    drag.offset({'top': (pos - middle)});
                 }
             }
         };
         // отпускаем клавишу мыши
         var mouseUp = function() {
-            // отключаем класс движущегося элемента
-            drag.toggleClass('moving');
+            $(drag)[0].removeAttribute('data-1');
             // завершаем выполнение функции
             $(document).off('mousemove', mouseMove).off('mouseup', mouseUp);
             // отключаем функцию отмены выделения текста
             $(document).off('mousedown', disableSelection);
-            // плавно возвращаем наш элемент на ближайшее освободившееся место
+            // плавно возвращаем элемент на ближайшее освободившееся место
+            // и возвращаем z-позицию на уровень остальных элементов
             drag.css({'top':0, 'z-index':1, 'background-color':'transparent'});
-                // возвращаем z-позицию на уровень остальных элементов
 
-            // здесь сохраняем новый порядок элементов
+            // здесь можно сохранить новый порядок элементов
             // (cookie или post-запрос на сервер, зависит от поставленной задачи)
         };
-        // подключаем выполнение функций перемещения и отпускания клавиши мыши
+        // подключаем выполнение функций перемещения и клавиш мыши,
         // завершаем выполнение функции, если нажата правая клавиша мыши
         $(document).on('mousemove', mouseMove).on('mouseup', mouseUp).on('contextmenu', mouseUp);
         // включаем функцию отмены выделения текста
@@ -152,7 +115,7 @@ $.fn.draggable = function(){
         // завершаем выполнение, если окно потеряло фокус (например, переключение на другую вкладку)
         $(window).on('blur', mouseUp);
     });
-}
+};
 
 $('.drag').draggable();
 
