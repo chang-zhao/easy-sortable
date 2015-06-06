@@ -13,9 +13,9 @@ In a further development, I think to:
 ^ convert from jQuery to pure JS as much as possible.
 
 # Usage
-* All the draggable elements should be placed vertically. They can be DIV, P, LI, SPAN etc. They shoul have class="drag".
-* All the draggable elements of a list (or of a united group of lists) should be siblings (children of the same parent container). That container could be DIV, OL, UL etc.
-* In that container, any other children elements may be present, not draggable by themselves. They can be used to separate a container space into several lists.
+* All the draggable elements should be placed vertically in the same parent container. The elements can be DIV, P, LI, SPAN etc, no matter. To be draggable, they only should have class="drag".
+* The parent container can be BODY, DIV, OL, UL etc. To split it into several lists, add to that container any elements without class "drag". Thus they will be non-draggable and could serve as separators.
+* You can serialize the results of the sorting with a simple script like var list = $('.drag').parent().children
 * See examples (HTML files of this repository).
 
 # Versions
@@ -27,4 +27,3 @@ Please use this freely for the benefit of all beings.
 
 Awakened Mind (Inheritance — Share-Alike) License v. 1.0
 http://earth.zen-do.ru/laws/license
-  
