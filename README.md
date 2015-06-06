@@ -6,7 +6,7 @@ Simple sortable plugin.
 * Fast and responsive. No lags, no stuttering.
 * Allows dragging between several lists. (Only vertical dragging).
 
-It uses jQuery for bindung & DOM manipulations, and CSS3 transitions for animations.
+It uses jQuery for DOM manipulations & bindings, and CSS3 transitions for animations.
 
 In a further development, I think to:
 
