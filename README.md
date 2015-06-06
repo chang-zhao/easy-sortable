@@ -1,9 +1,10 @@
 # easy-sortable
-Simple fast vertical sortable plugin. It allows dragging between several lists.
+Simple sortable plugin.
 
 # What & Why
-The simplest possible sortable plugin for modern browsers, fast and responsive.
-No lags, no stuttering.
+* The simplest possible sortable plugin for modern browsers.
+* Fast and responsive. No lags, no stuttering.
+* Allows dragging between several lists. (Only vertical dragging).
 
 It uses jQuery for bindung & DOM manipulations, and CSS3 transitions for animations.
 
