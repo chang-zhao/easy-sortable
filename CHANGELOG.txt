@@ -1,10 +1,10 @@
-2013.09.28 - ver. 0.1 by Michael Rafaylik,
-http://jsfiddle.net/rafaylik/VCKvM/
-http://habrahabr.ru/post/193004/
+2015.06.03 - Code optimization & cleanup. Ready to use now.
+^ Animations via CSS3 transitions instead of jQuery.
 
 2015.06.02 - ver. 0.2 by Chang Zhao,
 draft.
 ^ Position exchange algorythm works now for elements of different heights.
 
-2015.06.03 - Code optimization & cleanup. Ready to use now.
-^ Animations via CSS3 transitions instead of jQuery.
+2013.09.28 - ver. 0.1 by Michael Rafaylik,
+http://jsfiddle.net/rafaylik/VCKvM/
+http://habrahabr.ru/post/193004/
